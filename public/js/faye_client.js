@@ -5,13 +5,15 @@ client.subscribe(channel, function(msg) {
                               '</code> ' + msg.text + '</li>')
         .listview('refresh');
     var last_li = $("ul li:last-child").offset().top;
-    $.mobile.silentScroll(last_li);
+    setTimeout(function () {
+        $.mobile.silentScroll(last_li);
+    }, 50);
 });
 
 var box = $('.input');
 box.keyup(function(e) {
     if (e.keyCode == 13) {
-        if (box.val() == '\n') {
+        if (box.val().trim().length == 0) {
             box.val('');
             return;
         }
