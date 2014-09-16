@@ -1,5 +1,15 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(data-role="dialog" data-theme="b")
+    div(data-role="header")
+      h1 Select a channel to chat
+
+    div(data-role="content")
+      input(type="text" class="channel")
+      a(data-role="button" data-icon="check" id="ok") OK
+
+    div(data-role="footer" data-position="fixed")
+      small Designed by yxonic. Powered by jQueryMobile, Faye, node.js, and more.
+          
+  script(src="/js/channel.js")
