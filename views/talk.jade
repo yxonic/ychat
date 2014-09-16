@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  div(data-role="page" data-theme="b" id="main")
+    div(data-role="header" data-position="fixed")
+      h1= title
+
+    div(data-role="content")
+      ul(data-role="listview" class="conversation")
+
+    div(data-role="footer" data-position="fixed")
+      div(class="container")
+        textarea(name="textarea" rows="1" class="input" placeholder="Press Enter...")
+  
+  div(data-role="dialog" data-theme="b" id="ask")
+    div(data-role="header")
+      h1 Please input your name
+    div(data-role="content")
+      input(type="text" class="name")
+      a(href="main" data-rel="back" data-role="button" data-icon="check" id="ok") OK
+
+  script(type="text/javascript").
+    var channel = "/#{channel}";
+  script(src="/js/name.js")
+  script(src="/faye/client.js")
+  script(src="/js/faye_client.js")

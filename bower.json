@@ -1,0 +1,23 @@
+{
+  "name": "ychat",
+  "version": "0.0.0",
+  "authors": [
+    "Yin Yu <yxonic@gmail.com>"
+  ],
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "jquery-mobile": "~1.4.4"
+  }
+}

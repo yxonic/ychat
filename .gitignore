@@ -1,0 +1,11 @@
+# rebuild with `npm install`
+node_modules/
+
+# bower
+bower_components/
+
+# log files
+*.log
+
+# backup files
+*~
