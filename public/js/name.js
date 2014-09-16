@@ -1,7 +1,7 @@
-$(document).one('pageshow', function(event) {
+$(document).ready(function() {
     setTimeout(function () {
-        $.mobile.changePage($("#ask"), 'pop', true, true);
-    }, 100);
+        $.mobile.changePage('#ask', 'pop', true, true);
+    }, 200);
     setTimeout(function () {
         $('.name').focus();
     }, 300);

@@ -11,7 +11,7 @@ client.subscribe(channel, function(msg) {
 var box = $('.input');
 box.keyup(function(e) {
     if (e.keyCode == 13) {
-        if (box.val().length == 0) {
+        if (box.val() == '\n') {
             box.val('');
             return;
         }
