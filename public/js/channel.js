@@ -1,7 +1,7 @@
 $(document).one('pageshow', function(event) {
     setTimeout(function () {
         $('.channel').focus();
-    }, 300);
+    }, 200);
 });
 
 var textbox = $('.channel');
