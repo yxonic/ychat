@@ -16,5 +16,5 @@ $('#ok').click(function() {
     var channel = textbox.val();
     if (channel.length == 0)
         channel = "lobby";
-    window.location.href = "/" + channel;
+    window.location.href = channel;
 });
