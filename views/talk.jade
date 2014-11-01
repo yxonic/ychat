@@ -13,15 +13,24 @@ block content
       h1= title
 
     div(data-role="content")
-      ul(data-role="listview" class="conversation")
+      ul(data-role="listview" id="conversation")
 
     div(data-role="footer" data-position="fixed")
       div(class="container")
-        textarea(name="textarea" rows="1" class="input" placeholder="Press Enter..." autofocus)
+        textarea(id="input" rows="1" class="input" placeholder="Press Enter..." autofocus)
   
 block scripts
-  script(type="text/javascript").
-    var channel = "/#{channel}";
-  script(src="/js/name.js")
+  script(type="text/template" id="item-template")
+    li(class="sentence")
+      code(class="")
+        <%- name %>
+      label()
+        <%- text %>
   script(src="/faye/client.js")
-  script(src="/js/faye_client.js")
+  script(src="/js/models/msg.js")
+  script(src="/js/collections/msgs.js")
+  script(src="/js/views/msg-view.js")
+  script(src="/js/views/app-view.js")
+  script(type="text/javascript").
+    app.room = "/#{channel}";
+  script(src="/js/app.js")

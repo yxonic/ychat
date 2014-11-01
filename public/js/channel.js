@@ -9,6 +9,6 @@ textbox.keyup(function(e) {
 $('#ok').click(function() {
     var channel = textbox.val();
     if (channel.length == 0)
-        channel = "lobby";
+        channel = "public";
     window.location.href = channel;
 });
