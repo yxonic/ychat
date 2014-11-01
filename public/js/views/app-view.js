@@ -21,8 +21,13 @@ var app = app || {};
                 app.msgs.create(msg.model);
             });
             
-            this.$client.subscribe(app.uid, function (msg) {
+            this.$client.subscribe('/' + app.uid, function (msg) {
                 app.msgs.create(msg.model);
+            });
+
+            this.$client.publish('/faye/commands', {
+                uid: app.uid,
+                room: app.room,
             });
 
             this.listenTo(app.msgs, 'add', this.addOne);
@@ -68,9 +73,6 @@ var app = app || {};
         },
 
         fetchMore: function () {
-            this.$client.publish('/faye/commands', {
-                uid: app.uid,
-            });
         }
     });
 })(jQuery);
