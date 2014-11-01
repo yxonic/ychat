@@ -26,6 +26,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 
+var mongoose = require('mongoose');
+var opts = {
+    server: {
+        socketOptions: { keepAlive: 1 }
+    }
+};
+switch(app.get('env')){
+case 'development':
+    mongoose.connect('ychat-testing', opts);
+    break;
+case 'production':
+    mongoose.connect('ychat', opts);
+    break;
+default:
+    throw new Error('Unknown execution environment: ' + app.get('env'));
+}
+var msg = require('./models/msg.js')
+
+
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -59,4 +78,4 @@ app.use(function(err, req, res, next) {
 
 bayeux.attach(server);
 
-module.exports = {app: app, server: server};
+module.exports = {app: app, server: server, db: msg};
