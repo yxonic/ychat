@@ -28,7 +28,8 @@ $(function () {
             app.user = localStorage.getItem('user');
             app.uid = localStorage.getItem('uid');
             app.time = new Date().getTime();
-            new app.AppView();
+            if (!app.view)
+                app.view = new app.AppView();
         }
     });
     
@@ -45,7 +46,8 @@ $(function () {
         localStorage.setItem('user', app.user);
         localStorage.setItem('uid', app.uid);
         app.time = new Date().getTime();
-        new app.AppView();
+        if (!app.view)
+            app.view = new app.AppView();
     });
 });
 
