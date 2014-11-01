@@ -22,12 +22,15 @@ var app = app || {};
             });
             
             this.$client.subscribe('/' + app.uid, function (msg) {
-                app.msgs.create(msg.model);
+                msg.msgs.foreach(msg) {
+                    app.msgs.create(msg);
+                }
             });
 
             this.$client.publish('/faye/commands', {
                 uid: app.uid,
                 room: app.room,
+                time: app.time
             });
 
             this.listenTo(app.msgs, 'add', this.addOne);

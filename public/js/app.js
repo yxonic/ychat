@@ -3,7 +3,8 @@ var ENTER_KEY = 13;
 var ESC_KEY = 27;
 
 app.user = 'Anonymous';
-
+app.time = new Date().getTime();
+    
 var guid = (function() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
