@@ -47,8 +47,10 @@ var Msg = require('./models/msg.js')
 bayeux.on('publish', function(clientId, channel, data) {
     if (channel == '/faye/commands') return;
     var msg = Msg(data.model);
-    msg.save(function (err) {
-    });
+    if (msg.uid) {
+        msg.save(function (err) {
+        });
+    }
 })
 
 /// catch 404 and forward to error handler
