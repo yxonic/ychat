@@ -28,8 +28,7 @@ $(function () {
             app.user = localStorage.getItem('user');
             app.uid = localStorage.getItem('uid');
             app.time = new Date().getTime();
-            if (!app.view)
-                app.view = new app.AppView();
+            $('#ok').trigger('click');
         }
     });
     
