@@ -23,6 +23,8 @@ var app = app || {};
 
             this.$client.subscribe('/' + app.uid, function (msg) {
                 msg.msgs.forEach(function(msg) {
+                    msg.history = true;
+                    app.time = msg.time;
                     app.msgs.create(msg);
                 });
             });
@@ -30,7 +32,8 @@ var app = app || {};
             this.$client.publish('/faye/commands', {
                 uid: app.uid,
                 room: app.room,
-                time: app.time
+                time: app.time,
+                limit: 10
             });
 
             this.listenTo(app.msgs, 'add', this.addOne);
@@ -38,11 +41,16 @@ var app = app || {};
 
         addOne: function (msg) {
             var view = new app.MsgView({ model: msg });
-            this.$list.append(view.render().el).listview('refresh');
-            var last_li = $("ul li:last-child").offset().top;
-            setTimeout(function () {
-                $.mobile.silentScroll(last_li);
-            }, 50);
+            console.log(msg.toJSON());
+            if (msg.toJSON().history) {
+                this.$list.prepend(view.render().el).listview('refresh');
+            } else {
+                this.$list.append(view.render().el).listview('refresh');
+                var last_li = $("ul li:last-child").offset().top;
+                setTimeout(function () {
+                    $.mobile.silentScroll(last_li);
+                }, 50);
+            }
         },
 
         addAll: function () {
@@ -76,6 +84,11 @@ var app = app || {};
         },
 
         fetchMore: function () {
+            this.$client.publish('/faye/commands', {
+                uid: app.uid,
+                room: app.room,
+                time: app.time
+            });
         }
     });
 })(jQuery);

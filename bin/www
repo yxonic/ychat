@@ -7,9 +7,10 @@ var port = process.env.PORT || 3000;
 
 var client = new faye.Client('http://localhost:'+ port + '/faye');
 client.subscribe('/faye/commands', function (msg) {
-    channel = '/' + msg.uid
-    app.db.find({ room: msg.room }).limit(20).where('time').lt(msg.time)
-        .sort('time').exec(function(err, msgs) {
+    channel = '/' + msg.uid;
+    lim = msg.limit || 20;
+    app.db.find({ room: msg.room }).limit(lim).where('time').lt(msg.time)
+        .sort('-time').exec(function(err, msgs) {
             client.publish(channel, {
                 msgs: msgs
             });

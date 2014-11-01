@@ -3,7 +3,6 @@ var ENTER_KEY = 13;
 var ESC_KEY = 27;
 
 app.user = 'Anonymous';
-app.time = new Date().getTime();
     
 var guid = (function() {
   function s4() {
@@ -38,6 +37,7 @@ $(function () {
     $('#ok').click(function() {
         if (textbox.val().length > 0)
             app.user = textbox.val();
+        app.time = new Date().getTime();
         new app.AppView();
     });
 });
