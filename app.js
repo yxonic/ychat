@@ -34,16 +34,22 @@ var opts = {
 };
 switch(app.get('env')){
 case 'development':
-    mongoose.connect('ychat-testing', opts);
+    mongoose.connect('mongodb://localhost/ychat-testing', opts);
     break;
 case 'production':
-    mongoose.connect('ychat', opts);
+    mongoose.connect('mongodb://localhost/ychat', opts);
     break;
 default:
     throw new Error('Unknown execution environment: ' + app.get('env'));
 }
-var msg = require('./models/msg.js')
+var Msg = require('./models/msg.js')
 
+bayeux.on('publish', function(clientId, channel, data) {
+    if (channel == '/faye/commands') return;
+    var msg = Msg(data.model);
+    msg.save(function (err) {
+    });
+})
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -78,4 +84,4 @@ app.use(function(err, req, res, next) {
 
 bayeux.attach(server);
 
-module.exports = {app: app, server: server, db: msg};
+module.exports = {app: app, server: server, db: Msg};

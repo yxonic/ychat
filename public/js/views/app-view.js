@@ -20,11 +20,11 @@ var app = app || {};
             this.$client.subscribe(app.room, function (msg) {
                 app.msgs.create(msg.model);
             });
-            
+
             this.$client.subscribe('/' + app.uid, function (msg) {
-                msg.msgs.foreach(msg) {
+                msg.msgs.forEach(function(msg) {
                     app.msgs.create(msg);
-                }
+                });
             });
 
             this.$client.publish('/faye/commands', {

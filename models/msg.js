@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 var msgSchema = mongoose.Schema({
     room: String,
     uid: String,
@@ -8,4 +9,4 @@ var msgSchema = mongoose.Schema({
 });
 msgSchema.index({ room: 1, time: -1 })
 var Msg = mongoose.model('Msg', msgSchema);
-module.exports = Vacation;
+module.exports = Msg;

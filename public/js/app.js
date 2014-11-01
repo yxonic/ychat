@@ -38,11 +38,7 @@ $(function () {
     $('#ok').click(function() {
         if (textbox.val().length > 0)
             app.user = textbox.val();
-        setTimeout(function () {
-            $('.input').focus();
-        }, 300);
+        new app.AppView();
     });
-    
-    new app.AppView();
 });
 
