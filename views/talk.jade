@@ -5,7 +5,7 @@ block content
     div(data-role="header")
       h1 Input your name
     div(data-role="content")
-      input(type="text" class="name")
+      input(type="text" class="name" autofocus)
       a(href="#main" data-role="button" data-icon="check" id="ok") OK
 
   div(data-role="page" data-theme="b" id="main")
@@ -17,7 +17,7 @@ block content
 
     div(data-role="footer" data-position="fixed")
       div(class="container")
-        textarea(name="textarea" rows="1" class="input" placeholder="Press Enter...")
+        textarea(name="textarea" rows="1" class="input" placeholder="Press Enter..." autofocus)
   
   script(type="text/javascript").
     var channel = "/#{channel}";

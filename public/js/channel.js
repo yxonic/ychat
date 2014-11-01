@@ -1,9 +1,3 @@
-$(document).one('pageshow', function(event) {
-    setTimeout(function () {
-        $('.channel').focus();
-    }, 200);
-});
-
 var textbox = $('.channel');
 
 textbox.keyup(function(e) {

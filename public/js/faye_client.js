@@ -11,8 +11,9 @@ client.subscribe(channel, function(msg) {
 });
 
 var box = $('.input');
-box.keyup(function(e) {
-    if (e.keyCode == 13) {
+box.keydown(function(e) {
+    if (e.keyCode == 13 && !e.shiftKey) {
+        e.preventDefault();
         if (box.val().trim().length == 0) {
             box.val('');
             return;
