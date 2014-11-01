@@ -22,9 +22,14 @@ $(function () {
     'use strict';
     
     $(document).ready(function() {
-        setTimeout(function () {
+        if (!localStorage.getItem('user')) {
             $.mobile.changePage('#ask', 'pop', true, true);
-        }, 200);
+        } else {
+            app.user = localStorage.getItem('user');
+            app.uid = localStorage.getItem('uid');
+            app.time = new Date().getTime();
+            new app.AppView();
+        }
     });
     
     var textbox = $('.name');
@@ -37,6 +42,8 @@ $(function () {
     $('#ok').click(function() {
         if (textbox.val().length > 0)
             app.user = textbox.val();
+        localStorage.setItem('user', app.user);
+        localStorage.setItem('uid', app.uid);
         app.time = new Date().getTime();
         new app.AppView();
     });

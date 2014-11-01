@@ -41,7 +41,6 @@ var app = app || {};
 
         addOne: function (msg) {
             var view = new app.MsgView({ model: msg });
-            console.log(msg.toJSON());
             if (msg.toJSON().history) {
                 this.$list.prepend(view.render().el).listview('refresh');
             } else {
