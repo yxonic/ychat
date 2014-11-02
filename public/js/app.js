@@ -22,12 +22,13 @@ $(function () {
     'use strict';
     
     $(document).ready(function() {
-        if (!localStorage.getItem('user')) {
+        var time = localStorage.getItem(app.room + '.time');
+        app.time = new Date().getTime();
+        if (!time || app.time - time > 300000) {
             $.mobile.changePage('#ask', 'pop', true, true);
         } else {
-            app.user = localStorage.getItem('user');
-            app.uid = localStorage.getItem('uid');
-            app.time = new Date().getTime();
+            app.user = localStorage.getItem(app.room + '.user');
+            app.uid = localStorage.getItem(app.room + '.uid');
             $('#ok').trigger('click');
         }
     });
@@ -42,9 +43,10 @@ $(function () {
     $('#ok').click(function() {
         if (textbox.val().length > 0)
             app.user = textbox.val();
-        localStorage.setItem('user', app.user);
-        localStorage.setItem('uid', app.uid);
         app.time = new Date().getTime();
+        localStorage.setItem(app.room + '.user', app.user);
+        localStorage.setItem(app.room + '.uid', app.uid);
+        localStorage.setItem(app.room + '.time', app.time);
         if (!app.view)
             app.view = new app.AppView();
     });
