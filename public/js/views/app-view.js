@@ -5,15 +5,27 @@ var app = app || {};
     
     var format = function(date, full) {
         var str = '';
+        var Y = date.getFullYear();
+        var M = date.getMonth() + 1;
+        if (M < 10)
+            M = '0' + M;
+        var D = date.getDate();
+        if (D < 10)
+            D = '0' + D;
+        var h = date.getHours();
+        if (h < 10)
+            h = '0' + h;
+        var m = date.getMinutes();
+        if (m < 10)
+            m = '0' + m;
+        var s = date.getSeconds();
+        if (s < 10)
+            s = '0' + s;
         if (full) {
-            var text = date.getFullYear() + '-'
-                + (date.getMonth() + 1) + '-'
-                + date.getDate() + ' ';
+            var text = Y + '-' + M + '-' + D + ' ';
             str += text;
         }
-        var time = date.getHours() + ':'
-            + date.getMinutes() + ':'
-            + date.getSeconds();
+        var time = h + ':' + m + ':' + s;
         str += time;
         return str;
     }
@@ -27,6 +39,8 @@ var app = app || {};
             'keydown #input': 'createOnEnter',
             'click #header': 'fetchMore'
         },
+
+        template: _.template($('#date-template').html()),
 
         initialize: function () {
             this.$input = this.$('#input');
@@ -70,9 +84,9 @@ var app = app || {};
                         datestr += format(date, true);
                     else
                         datestr += format(date);
-                    this.$list.prepend("<li style='text-align:right'>"
-                                       + datestr
-                                       + "</li>").listview('refresh');
+                    this.$list.prepend(this.template({
+                        datestr: datestr
+                    }));
                 }
                 this.$list.prepend(view.render().el).listview('refresh');
             } else {
@@ -86,9 +100,9 @@ var app = app || {};
                         datestr += format(pdate, true);
                     else
                         datestr += format(pdate);
-                    this.$list.append("<li style='text-align:right'>"
-                                      + datestr
-                                      + "</li>").listview('refresh');
+                    this.$list.prepend(this.template({
+                        datestr: datestr
+                    }));
                 }
                 this.$list.append(view.render().el).listview('refresh');
                 var last_li = $("ul li:last-child");

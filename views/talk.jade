@@ -22,10 +22,19 @@ block content
 block scripts
   script(type="text/template" id="item-template")
     li(class="sentence")
-      code(class="")
-        <%- name %>
-      span(style="font-weight:900") &gt;&gt; 
-      <%- text %>
+      table
+        tr
+          td
+            code(class="")
+              <%- name %>
+            | &nbsp;&nbsp;&nbsp;
+          td
+            div(style="white-space: normal")
+              <%- text %>
+  script(type="text/template" id="date-template")
+    li(class="sentence")
+      div(style="text-align:right;font-weight:900")
+        <%- datestr %>
   script(src="/faye/client.js")
   script(src="/js/models/msg.js")
   script(src="/js/collections/msgs.js")
