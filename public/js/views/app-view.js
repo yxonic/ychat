@@ -90,7 +90,11 @@ var app = app || {};
                 }
                 this.$list.prepend(view.render().el).listview('refresh');
             } else {
-                var last = app.msgs.at(app.msgs.length - 2).attributes;
+                var last = app.msgs.at(app.msgs.length - 2);
+                if (last)
+                    last = last.attributes;
+                else
+                    last = msg.attributes;
                 if (msg.attributes.time - last.time > duration) {
                     var date = new Date(last.time);
                     var pdate = new Date(msg.attributes.time);
