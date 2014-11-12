@@ -91,7 +91,6 @@ var app = app || {};
                 this.$list.prepend(view.render().el).listview('refresh');
             } else {
                 var last = app.msgs.at(app.msgs.length - 2).attributes;
-                console.log(app.msgs);
                 if (msg.attributes.time - last.time > duration) {
                     var date = new Date(last.time);
                     var pdate = new Date(msg.attributes.time);
@@ -100,7 +99,7 @@ var app = app || {};
                         datestr += format(pdate, true);
                     else
                         datestr += format(pdate);
-                    this.$list.prepend(this.template({
+                    this.$list.append(this.template({
                         datestr: datestr
                     }));
                 }
