@@ -69,11 +69,9 @@ var app = app || {};
             });
 
             this.listenTo(app.msgs, 'add', this.addOne);
-            this.listenTo(app.msgs, 'reset', this.update);
         },
 
         addOne: function (msg) {
-            console.log(msg);
             var view = new app.MsgView({ model: msg });
             if (msg.toJSON().history) {
                 var first = app.msgs.at(1);
@@ -118,10 +116,6 @@ var app = app || {};
             }
         },
 
-        update: function() {
-            console.log("GREAT!");
-        },
-        
         newAttributes: function () {
             return {
                 room: app.room,
