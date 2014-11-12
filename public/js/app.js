@@ -24,7 +24,7 @@ $(function () {
     $(document).ready(function() {
         var time = localStorage.getItem(app.room + '.time');
         app.time = new Date().getTime();
-        if (!time || app.time - time > 300000) {
+        if (app.set || !time || app.time - time > 300000) {
             $.mobile.changePage('#ask', 'pop', true, true);
         } else {
             app.user = localStorage.getItem(app.room + '.user');
@@ -41,6 +41,7 @@ $(function () {
     });
     
     $('#ok').click(function() {
+        app.set = true;
         if (textbox.val().length > 0)
             app.user = textbox.val();
         app.time = new Date().getTime();
@@ -51,4 +52,3 @@ $(function () {
             app.view = new app.AppView();
     });
 });
-
