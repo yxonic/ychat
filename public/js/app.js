@@ -22,15 +22,17 @@ $(function () {
     'use strict';
     
     $(document).ready(function() {
-        var time = localStorage.getItem(app.room + '.time');
-        app.time = new Date().getTime();
-        if (app.set || !time || app.time - time > 300000) {
-            $.mobile.changePage('#ask', 'pop', true, true);
-        } else {
-            app.user = localStorage.getItem(app.room + '.user');
-            app.uid = localStorage.getItem(app.room + '.uid');
-            $('#ok').trigger('click');
-        }
+        setTimeout(function () {
+            var time = localStorage.getItem(app.room + '.time');
+            app.time = new Date().getTime();
+            if (!time || app.time - time > 300000) {
+                $.mobile.changePage('#ask', 'pop', true, true);
+            } else {
+                app.user = localStorage.getItem(app.room + '.user');
+                app.uid = localStorage.getItem(app.room + '.uid');
+                $('#ok').trigger('click');
+            }
+        }, 500);
     });
     
     var textbox = $('.name');
@@ -41,7 +43,6 @@ $(function () {
     });
     
     $('#ok').click(function() {
-        app.set = true;
         if (textbox.val().length > 0)
             app.user = textbox.val();
         app.time = new Date().getTime();
@@ -50,5 +51,8 @@ $(function () {
         localStorage.setItem(app.room + '.time', app.time);
         if (!app.view)
             app.view = new app.AppView();
+        setTimeout(function () {
+            $('#input').focus();
+        }, 500);
     });
 });

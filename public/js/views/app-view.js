@@ -48,8 +48,8 @@ var app = app || {};
             this.$client = new Faye.Client('/faye', { timeout: 20 });
 
             this.$client.subscribe(app.room, function (msg) {
-                app.msgs.set(msg.model, {remove: false});
-                app.msgs.reset();
+                if (!app.msgs.get(msg.model.id))
+                    app.msgs.set(msg.model, {remove: false});
             });
 
             this.$client.subscribe('/' + app.uid, function (msg) {
@@ -137,7 +137,7 @@ var app = app || {};
                 var msg = this.newAttributes();
                 msg = app.msgs.create(msg);
                 this.$client.publish(app.room, {
-                    model: msg
+                        model: msg
                 });
                 this.$input.val('');
             }
