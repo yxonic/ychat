@@ -48,7 +48,8 @@ var app = app || {};
             this.$client = new Faye.Client('/faye', { timeout: 20 });
 
             this.$client.subscribe(app.room, function (msg) {
-                app.msgs.create(msg.model);
+                app.msgs.set(msg.model, {remove: false});
+                app.msgs.reset();
             });
 
             this.$client.subscribe('/' + app.uid, function (msg) {
@@ -68,9 +69,11 @@ var app = app || {};
             });
 
             this.listenTo(app.msgs, 'add', this.addOne);
+            this.listenTo(app.msgs, 'reset', this.update);
         },
 
         addOne: function (msg) {
+            console.log(msg);
             var view = new app.MsgView({ model: msg });
             if (msg.toJSON().history) {
                 var first = app.msgs.at(1);
@@ -115,6 +118,10 @@ var app = app || {};
             }
         },
 
+        update: function() {
+            console.log("GREAT!");
+        },
+        
         newAttributes: function () {
             return {
                 room: app.room,
@@ -133,8 +140,10 @@ var app = app || {};
                     this.$input.val('');
                     return;
                 }
+                var msg = this.newAttributes();
+                msg = app.msgs.create(msg);
                 this.$client.publish(app.room, {
-                    model: this.newAttributes()
+                    model: msg
                 });
                 this.$input.val('');
             }
